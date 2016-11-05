@@ -1,11 +1,13 @@
-# proj6-mongo
+# proj6-mongo: Memos of Mongo
 Simple list of dated memos kept in MongoDB database
 
 ## What is here
 
 A simple Flask app that displays all the dated memos it finds in a MongoDB database.
 There is also a 'scaffolding' program, db_trial.py, for inserting a couple records into the database 
-and printing them out.  Get db_trial.py working before you try making your flask app work. 
+and printing them out.
+
+Application supports adding and removing memos and ording them by date.
 
 ## What is not here
 
@@ -21,13 +23,6 @@ in it:
 = secrets/client_secrets.py holds configuration information for your
   application. 
 
-
-
-## Functionality you'll add
-
-The user should be able to add dated memos, either from the same index page or from a separate page. 
-Memos should be displayed in date order. 
-The user should be able to delete memos. 
 
 ## Setting up
 
@@ -51,4 +46,35 @@ In Python, the pymongo API works with both versions of MongoDB, so
 it's only the initial setup where you have to be  
 careful to use the right version-specific commands. 
 
+## How to Run the Code
+Make sure that you've started your mongodb database and created a admin user using
 
+```
+	mongod --port xxxx
+	use admin
+```
+Then adding your user credentials. Afterward you are ready to connect ot the application after creating your admin_credentials file.
+
+You may start configuring the code by doing the following.
+
+```
+	bash ./configure
+	make test    # All tests should pass
+	make service # Then I test from browser on another machine
+```
+If you are not in Eugene, deny location access and by default it will position you in Eugene.
+
+
+If you have issues with the service you can stop the service by typing the following:
+```
+	ps -e | grep gunicorn #Find the PID for gunicorn
+	kill -9 pid #where pid is the process id returned by the last command
+	make service
+```
+If you are getting issues starting the mongodb server, make sure your current user has access to /data/db/
+
+If you do not, attempt the following as root. 
+
+```
+sudo chown -R youruser /data/db/
+```
