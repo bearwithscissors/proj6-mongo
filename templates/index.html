@@ -42,9 +42,9 @@
     {% for memo in g.memos %}
   <div class="memo">
   <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2"><h2><input type="checkbox" value={{memo._id}} name="memobox" id="checkbox">
     {{ memo.date | humanize }}
-  </div>
+  </h2></div>
   <div class="col-md-10">
     {{ memo.text }}
   </div>
@@ -52,10 +52,39 @@
   </div> <!-- memo -->
   {% endfor %}
 {% else %}
-  <p>No memos for you. </p>  
+  <p>No memos for you. </p>
 {% endif %}
 
- 
+<form action="/create">
+
+<input type="submit" value="Create New Memo">
+</form>
+<button onclick="remove()" id="remove">Remove Selected Memos</button>
+
+<script>
+function remove(){
+  var all;
+  var checked;
+  all = $("input:checkbox");
+  checked = all.filter(":checked");
+  var checkedIds = checked.map(function(){
+    return this.value;
+  });
+  console.log(checkedIds);
+  console.log(checkedIds.length);
+  for(i=0; i<checkedIds.length; i++){
+    console.log(checkedIds[i]);
+    remove_memo(checkedIds[i]);
+  }
+  loadPage("index");
+}
+function remove_memo(_id) {
+   $.getJSON('/_remove_memo', { _id: _id});
+ }
+ function loadPage(txt) {
+  location.href = txt;
+}
+</script>
 
 </div> <!-- container -->
 </body>
