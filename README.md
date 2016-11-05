@@ -50,7 +50,7 @@ careful to use the right version-specific commands.
 Make sure that you've started your mongodb database and created a admin user using
 
 ```
-	mongod --port xxxx
+	mongo --port xxxx
 	use admin
 ```
 Then adding your user credentials. Afterward you are ready to connect ot the application after creating your admin_credentials file.
